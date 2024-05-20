@@ -1,0 +1,11 @@
+<% if flash[:alert].present? %>
+  <div class="hidden" data-controller="notifications" data-notifications-toast-type-value="bg-danger" data-notifications-message-value="<%= flash[:alert] %>" data-notifications-alert-type-value="Error">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<% if flash[:notice].present? %>
+  <div class="hidden" data-controller="notifications" data-notifications-toast-type-value="bg-success" data-notifications-message-value="<%= flash[:notice] %>" data-notifications-alert-type-value="Success">
+    <%= flash[:notice] %>
+  </div>
+<% end %>

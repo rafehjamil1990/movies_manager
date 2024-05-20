@@ -1,0 +1,103 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Manage Movies</h1>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="card card-info">
+    <div class="card-header">
+      <h3 class="card-title">Search</h3>
+    </div>
+
+    <div class="card-body">
+      <%= form_with url: movies_path, class: 'col-md-12', method: 'get' do |f| %>
+        <div class="row">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-search"></i>
+              </span>
+            </div>
+            <%= f.text_field :search_actor, class: 'form-control', placeholder: 'Search Actor', type: 'text', value: params[:search_actor] %>
+          </div>
+        </div>
+
+      
+        <%= f.submit 'Search', class: 'btn btn-success float-right' %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Default box -->
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Movies</h3>
+    </div>
+
+    <div class="card-body p-0">
+      <table class="table table-striped projects">
+        <thead>
+          <tr>
+            <th style="width: 15%">
+              Movie Name
+            </th>
+            <th style="width: 30%">
+              Description
+            </th>
+            <th style="width: 5%" class="text-center">
+              Year
+            </th>
+            <th style="width: 15%" class="text-center">
+              Director
+            </th>
+            <th style="width: 10%" class="text-center">
+              Actor
+            </th>
+            <th style="width: 8%" class="text-center">
+              Filming Location
+            </th>
+            <th style="width: 8%" class="text-center">
+              Country
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @movies_actors.each do |movie_actor| %>
+            <tr>
+              <td>
+                <%= movie_actor.movie.name %>
+              </td>
+              <td>
+                <%= movie_actor.movie.description %>
+              </td>
+              <td class="text-center">
+                <%= movie_actor.movie.year %>
+              </td>
+              <td class="text-center">
+                <%= movie_actor.movie.director.name %>
+              </td>
+              <td class="text-center">
+                <%= movie_actor.actor.name %>
+              </td>
+              <td class="text-center">
+                <%= movie_actor.movie.filming_location.name %>
+              </td>
+              <td class="text-center">
+                <%= movie_actor.movie.country.name %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</section>

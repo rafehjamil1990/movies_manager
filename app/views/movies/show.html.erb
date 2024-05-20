@@ -1,0 +1,90 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1><%= @event.name %></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><%= link_to 'Events', events_path %></li>
+          <li class="breadcrumb-item active"><%= @event.name %></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Event Details -->
+<section class="content">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Projects Detail</h3>
+
+      <div class="card-tools">
+        <% if @joined_users.exists?(current_user.id) %>
+          <%= button_to 'Leave Event', event_user_path(event_id: @event.id, id: current_user.id), class: 'btn btn-danger', method: :delete %>
+        <% elsif @event.available_slots.positive? %>
+          <%= button_to 'Join Event', event_users_path(event_id: @event.id), class: 'btn btn-primary', method: :post %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-md-12 col-lg-12 order-1 order-md-2">
+          <p class="text-muted"><%= @event.description %></p>
+
+          <div class="row">
+            <div class="col-12 col-sm-4">
+              <div class="info-box bg-light">
+                <div class="info-box-content">
+                  <span class="info-box-text text-center text-muted">Available Tickets</span>
+                  <span class="info-box-number text-center text-muted mb-0"><%= @event.available_slots %></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="info-box bg-light">
+                <div class="info-box-content">
+                  <span class="info-box-text text-center text-muted">Booked Tickets</span>
+                  <span class="info-box-number text-center text-muted mb-0"><%= @event.booked_slots %></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="info-box bg-light">
+                <div class="info-box-content">
+                  <span class="info-box-text text-center text-muted">Total Tickets</span>
+                  <span class="info-box-number text-center text-muted mb-0"><%= @event.total_slots %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% if @joined_users.present? %>
+            <div class="row">
+              <div class="col-12">
+                <h4>Booked Users</h4>
+
+                <table class="table table-striped projects">
+                  <thead>
+                    <tr>
+                      <th>User Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @event.joined_users.each do |user| %>
+                      <tr>
+                        <td><%= user.full_name %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

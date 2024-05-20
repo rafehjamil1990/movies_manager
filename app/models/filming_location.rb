@@ -1,0 +1,2 @@
+class FilmingLocation < Location
+end
